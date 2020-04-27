@@ -1,15 +1,15 @@
 // These are our required libraries to make the server work.
+
 import express from 'express';
 import fetch from 'node-fetch';
 
-// const sqlite3 = require('sqlite3').verbose();
-// We're including a server-side version of SQLite, the in-memory SQL server.
+// eslint-disable-next-line max-len
+// const sqlite3 = require('sqlite3').verbose(); // We're including a server-side version of SQLite, the in-memory SQL server.
 // const open = require(sqlite).open; // We're including a server-side version of SQLite, the in-memory SQL server.
 
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
 import writeUser from './libraries/writeuser';
-import { extendTrace } from 'sqlite3/lib/trace';
 
 const dbSettings = {
   filename: './tmp/database.db',
@@ -22,14 +22,6 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
-
-async function writeUser(username, settings){
-  const db = await open(settings);
-  await db.exec("CREATE TABLE IF NOT EXISTS user (name)");
-  await db.exec(`INSERT INTO user VALUES ("${username}")`);
-  console.log("Expected result", result);
-  return result;
-}
 
 function processDataForFrontEnd(req, res) {
   const baseURL = ''; // Enter the URL for the data you would like to retrieve here
